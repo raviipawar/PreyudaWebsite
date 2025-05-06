@@ -1,6 +1,6 @@
 [build]
   base    = "PreTech"
-  publish = "PreTech/.next"
+  publish = ".next"
   command = "npm run build"
 
 [build.environment]
