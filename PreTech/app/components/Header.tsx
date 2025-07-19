@@ -1,115 +1,163 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "../hooks/useTheme";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
 
   const navLinks = [
-    { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Blog", href: "/" },  // Consider fixing duplicate href here
     { name: "Careers", href: "/careers" },
   ];
 
-  return (
-    <header className="bg-gray-900 text-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-6 px-4">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <a href="/" className="flex items-center space-x-2">
-            <img
-              src="/images/applogo.png"
-              alt="Preyuda Softwares Logo"
-              className="h-16 w-16 rounded-full shadow-md"
-            />
-            <span className="text-2xl font-bold">PreyudaTech</span>
-          </a>
-        </div>
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-8 text-sm font-medium">
+  return (
+    <motion.header
+      initial={{ backgroundColor: "rgba(255,255,255,0)" }}
+      animate={{
+        backgroundColor: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0)",
+        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.1)" : "none",
+      }}
+      transition={{ duration: 0.3 }}
+      className="fixed w-full top-0 z-50 backdrop-blur-md"
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-5 px-6 md:px-10 lg:px-16">
+        {/* Logo */}
+        <a href="/" className="flex items-center space-x-3">
+          <img
+            src="/images/applogo.png"
+            alt="Preyuda Softwares Logo"
+            className="h-12 w-12 rounded-full shadow-md"
+          />
+          <span className="font-lexend text-3xl font-extrabold tracking-tight text-indigo-700">
+            PreyudaTech
+          </span>
+        </a>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center space-x-10 font-inter text-sm tracking-wide text-gray-700">
           {navLinks.map((link) => (
-            <a
+            <motion.a
               key={link.name}
               href={link.href}
-              className={`hover:text-indigo-400 transition ${
-                pathname === link.href ? "text-indigo-400" : ""
-              }`}
+              whileHover={{ scale: 1.1, color: "#4F46E5" }} // Indigo-600
+              className={`cursor-pointer transition-colors duration-200 ${pathname === link.href
+                  ? "text-indigo-600 font-semibold"
+                  : "text-gray-700"
+                }`}
             >
               {link.name}
-            </a>
+            </motion.a>
           ))}
+
+          {/* Contact Us button */}
+          <a
+            href="/contact"
+            className="ml-6 px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-semibold shadow-md hover:from-indigo-700 hover:to-indigo-800 transition transform hover:scale-105"
+          >
+            Get in touch
+          </a>
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="ml-6 p-2 rounded hover:bg-gray-200 transition"
+            title="Toggle Theme"
+          >
+            {theme === "dark" ? "🌙" : "☀️"}
+          </button>
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <a
-            href="#contact"
-            className="bg-indigo-600 hover:bg-indigo-700 transition px-4 py-2 rounded-full text-sm font-semibold"
+        {/* Mobile menu & theme toggle */}
+        <div className="flex items-center md:hidden space-x-4">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded hover:bg-gray-200 transition"
+            title="Toggle Theme"
           >
-            Get Started
-          </a>
+            {theme === "dark" ? "🌙" : "☀️"}
+          </button>
+
+          <button
+            className="text-indigo-600"
+            aria-label="Toggle menu"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+              />
+            </svg>
+          </button>
         </div>
-
-        {/* Add inside the header next to CTA or nav */}
-        <button
-          onClick={toggleTheme}
-          className="ml-4 p-2 rounded hover:bg-gray-700 transition md:block hidden"
-          title="Toggle Theme"
-        >
-          {theme === "dark" ? "🌙" : "☀️"}
-        </button>
-
-        {/* Hamburger for Mobile */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-            />
-          </svg>
-        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-2 bg-gray-800 text-sm font-medium">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={`block py-2 px-2 rounded hover:bg-gray-700 ${
-                pathname === link.href ? "text-indigo-400" : ""
-              }`}
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setIsOpen(false)}
-            className="block mt-2 px-4 py-2 bg-indigo-600 text-center rounded hover:bg-indigo-700"
+      {/* Mobile menu dropdown */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="md:hidden bg-white shadow-md overflow-hidden"
           >
-            Get Started
-          </a>
-        </div>
-      )}
-    </header>
+            <ul className="flex flex-col space-y-3 p-6 uppercase font-inter text-sm tracking-widest text-indigo-600">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="block font-semibold hover:text-indigo-700"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="/contact"
+                  className="block mt-4 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 font-semibold text-center shadow-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Contact Us
+                </a>
+              </li>
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+
+      <style jsx>{`
+        .font-lexend {
+          font-family: "Lexend", sans-serif;
+        }
+        .font-inter {
+          font-family: "Inter", sans-serif;
+        }
+      `}</style>
+    </motion.header>
   );
 }
