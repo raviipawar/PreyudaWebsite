@@ -87,7 +87,7 @@ export function Hero() {
           transition={{ duration: 1, ease: ["easeIn", "easeOut"] }}
           aria-label="Preyuda Technologies"
         >
-          Preyuda Technologies
+          Preyuda Tech
         </motion.h1>
 
         <div className="text-xl md:text-2xl text-indigo-300 mb-16 min-h-[2em] font-medium tracking-wide">
