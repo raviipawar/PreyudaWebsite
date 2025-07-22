@@ -1,4 +1,3 @@
-// ServicesSection.tsx
 import { ServiceCard } from "./ServiceCard";
 
 const services = [
@@ -6,31 +5,26 @@ const services = [
     title: "Ideation",
     description: "Brainstorming and conceptualizing innovative ideas.",
     image: "/images/ideation.svg",
-    span: 3,
   },
   {
     title: "Design",
     description: "Crafting intuitive UI/UX designs.",
     image: "/images/design.svg",
-    span: 2,
   },
   {
     title: "Development",
     description: "Building scalable and maintainable software.",
     image: "/images/development.svg",
-    span: 2,
   },
   {
-    title: "Continuous Upgradation",
+    title: "New Updates",
     description: "Ensuring software stays up-to-date and efficient.",
     image: "/images/continuous.svg",
-    span: 3,
   },
   {
     title: "Support",
     description: "Providing ongoing assistance and troubleshooting.",
     image: "/images/support.svg",
-    span: 2,
   },
 ];
 
@@ -45,7 +39,7 @@ export function ServicesSection() {
   return (
     <section className="bg-gray-900 max-w-7xl mx-auto px-6 py-16 space-y-20 text-white">
       {/* AI Agent Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <img
           src="/images/applogo.png"
           alt="AI Agent"
@@ -54,20 +48,21 @@ export function ServicesSection() {
         <p className="text-lg font-medium leading-relaxed">
           An AI agent that will make an application as an essential healthcare tool for MR.
         </p>
-      </div>
+      </div> */}
 
       {/* Software Development Framework */}
       <div>
-        <h3 className="text-2xl font-bold mb-8 text-center">Software development framework</h3>
-        <div className="grid grid-cols-5 gap-6">
-          {services.map(({ title, description, image, span }, idx) => (
-            <div key={idx} className={`col-span-${span}`}>
-              <ServiceCard
-                title={title}
-                description={description}
-                image={image}
-              />
-            </div>
+        <h3 className="text-2xl font-bold mb-8 text-center">
+          Software development framework
+        </h3>
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {services.map(({ title, description, image }, idx) => (
+            <ServiceCard
+              key={idx}
+              title={title}
+              description={description}
+              image={image}
+            />
           ))}
         </div>
       </div>
@@ -76,7 +71,8 @@ export function ServicesSection() {
       <div>
         <h3 className="text-2xl font-bold mb-6 text-center">Why PreyudaTech</h3>
         <p className="max-w-3xl mx-auto mb-10 text-center">
-          As a key player in the pharmaceutical and healthcare industry, we understand market needs and develop products accordingly.
+          As a key player in the pharmaceutical and healthcare industry, we
+          understand market needs and develop products accordingly.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
           {whyPreyuda.map((text, idx) => (
