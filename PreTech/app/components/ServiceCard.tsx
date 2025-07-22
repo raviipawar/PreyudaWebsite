@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface ServiceCardProps {
   title: string;
   description: string;
@@ -6,12 +8,15 @@ interface ServiceCardProps {
 
 export function ServiceCard({ title, description, image }: ServiceCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition overflow-hidden">
-    <img src={image} alt={title} className="w-full h-48 object-cover" />
-    <div className="p-6">
-      <h4 className="text-xl font-bold mb-2 dark:text-white">{title}</h4>
-      <p className="text-gray-600 dark:text-gray-300 text-sm">{description}</p>
+    <div className="bg-gray-800 rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col items-center text-center h-full">
+      <img src={image} alt={title} className="h-24 w-24 object-contain mb-4" />
+      <Link
+        href="/"
+        className="text-lg font-semibold mb-2 text-black hover:underline"
+      >
+        {title}
+      </Link>
+      <p className="text-gray-300 text-sm">{description}</p>
     </div>
-  </div>
   );
 }

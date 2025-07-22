@@ -1,41 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "../hooks/useTheme";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
 
   const navLinks = [
-    { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
-    { name: "Blog", href: "/" },  // Consider fixing duplicate href here
-    { name: "Careers", href: "/careers" },
+    { name: "Industry", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Insights", href: "/" },
+    { name: "Industrial Training", href: "/" },
+    // { name: "Careers", href: "/careers" },
   ];
 
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <motion.header
-      initial={{ backgroundColor: "rgba(255,255,255,0)" }}
-      animate={{
-        backgroundColor: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0)",
-        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.1)" : "none",
-      }}
-      transition={{ duration: 0.3 }}
-      className="fixed w-full top-0 z-50 backdrop-blur-md"
-    >
+    <header className="fixed w-full top-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-5 px-6 md:px-10 lg:px-16">
         {/* Logo */}
         <a href="/" className="flex items-center space-x-3">
@@ -52,17 +37,14 @@ export function Header() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center space-x-10 font-inter text-sm tracking-wide text-gray-700">
           {navLinks.map((link) => (
-            <motion.a
+            <a
               key={link.name}
               href={link.href}
-              whileHover={{ scale: 1.1, color: "#4F46E5" }} // Indigo-600
-              className={`cursor-pointer transition-colors duration-200 ${pathname === link.href
-                  ? "text-indigo-600 font-semibold"
-                  : "text-gray-700"
-                }`}
+              className="cursor-pointer transition-colors duration-200 hover:text-indigo-600"
+              // No active styling here
             >
               {link.name}
-            </motion.a>
+            </a>
           ))}
 
           {/* Contact Us button */}
@@ -158,6 +140,6 @@ export function Header() {
           font-family: "Inter", sans-serif;
         }
       `}</style>
-    </motion.header>
+    </header>
   );
 }
