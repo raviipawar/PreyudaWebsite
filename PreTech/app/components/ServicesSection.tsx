@@ -1,87 +1,117 @@
 import { ServiceCard } from "./ServiceCard";
+import Link from "next/link";
 
 const services = [
   {
     title: "Ideation",
     description: "Brainstorming and conceptualizing innovative ideas.",
-    image: "/images/ideation.svg",
+    link: "/",
+    image: "/images/applogo.png",
   },
   {
     title: "Design",
     description: "Crafting intuitive UI/UX designs.",
-    image: "/images/design.svg",
+    link: "/",
+    image: "/images/applogo.png",
   },
   {
     title: "Development",
     description: "Building scalable and maintainable software.",
-    image: "/images/development.svg",
-  },
-  {
-    title: "New Updates",
-    description: "Ensuring software stays up-to-date and efficient.",
-    image: "/images/continuous.svg",
+    link: "/",
+    image: "/images/applogo.png",
   },
   {
     title: "Support",
     description: "Providing ongoing assistance and troubleshooting.",
-    image: "/images/support.svg",
+    link: "/",
+    image: "/images/applogo.png",
   },
 ];
 
-const whyPreyuda = [
-  "15+ years in healthcare market",
-  "Highly experienced team",
-  "Use live data for testing",
-  "Proven successful projects",
+const successStories = [
+  {
+    title: "Hospital Digitalization",
+    description: "Transformed hospital operations with AI-powered solutions.",
+    link: "/",
+    image: "/images/success/applogo.png",
+  },
+  {
+    title: "MR Productivity Boost",
+    description: "Enabled MRs to increase outreach by 40% using smart routing.",
+    link: "/",
+    image: "/images/success/applogo.png",
+  },
+  {
+    title: "Real-time Pharma Insights",
+    description: "Live dashboards to track medicine sales across regions.",
+    link: "/",
+    image: "/images/success/applogo.png",
+  },
+  {
+    title: "AI-Driven Patient Care",
+    description: "Improved adherence by 30% through intelligent tracking.",
+    link: "/",
+    image: "/images/success/applogo.png",
+  },
 ];
 
 export function ServicesSection() {
   return (
-    <section className="bg-gray-900 max-w-7xl mx-auto px-6 py-16 space-y-20 text-white">
-      {/* AI Agent Section */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <img
-          src="/images/applogo.png"
-          alt="AI Agent"
-          className="rounded-lg shadow-lg"
-        />
-        <p className="text-lg font-medium leading-relaxed">
-          An AI agent that will make an application as an essential healthcare tool for MR.
-        </p>
-      </div> */}
-
+    <section className="w-full bg-[#0B0F19] text-white py-16 px-4 sm:px-6 md:px-10 space-y-20">
       {/* Software Development Framework */}
       <div>
-        <h3 className="text-2xl font-bold mb-8 text-center">
-          Software development framework
-        </h3>
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-          {services.map(({ title, description, image }, idx) => (
-            <ServiceCard
+        <h3 className="text-2xl font-bold mb-6 text-center">Our Services</h3>
+        <p className="max-w-3xl mx-auto mb-10 text-center text-gray-300">
+          We Provide Services and Solution in Below Sectors
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {services.map(({ title, description, link, image }, idx) => (
+            <Link
               key={idx}
-              title={title}
-              description={description}
-              image={image}
-            />
+              href={link}
+              className="block bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+            >
+              <img
+                src={image}
+                alt={title}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-4 flex flex-col items-center justify-center text-center text-black dark:text-white">
+                <h4 className="text-lg font-bold mb-2">{title}</h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {description}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
 
-      {/* Why PreyudaTech */}
+      {/* Success Stories */}
       <div>
-        <h3 className="text-2xl font-bold mb-6 text-center">Why PreyudaTech</h3>
-        <p className="max-w-3xl mx-auto mb-10 text-center">
-          As a key player in the pharmaceutical and healthcare industry, we
-          understand market needs and develop products accordingly.
+        <h3 className="text-2xl font-bold mb-6 text-center">Testimonial</h3>
+        <p className="max-w-3xl mx-auto mb-10 text-center text-gray-300">
+          <b>Listen To What Our Happy Client Say</b>
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          {whyPreyuda.map((text, idx) => (
-            <div
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {successStories.map(({ title, description, link, image }, idx) => (
+            <Link
               key={idx}
-              className="bg-gray-700 rounded-md p-6 text-center font-medium text-white"
+              href={link}
+              className="block bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
-              {text}
-            </div>
+              <img
+                src={image}
+                alt={title}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-4 flex flex-col items-center justify-center text-center text-black dark:text-white">
+                <h4 className="text-lg font-bold mb-2">{title}</h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {description}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

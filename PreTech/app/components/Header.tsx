@@ -16,6 +16,7 @@ export function Header() {
     { name: "About", href: "/about" },
     { name: "Insights", href: "/" },
     { name: "Industrial Training", href: "/" },
+    { name: "Contact Us", href: "/contact" }
     // { name: "Careers", href: "/careers" },
   ];
 
@@ -29,9 +30,10 @@ export function Header() {
             alt="Preyuda Softwares Logo"
             className="h-12 w-12 rounded-full shadow-md"
           />
-          <span className="font-lexend text-3xl font-extrabold tracking-tight text-indigo-700">
-            PreyudaTech
-          </span>
+         <span className="font-lexend text-3xl font-extrabold tracking-tight bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text">
+  PreyudaTech
+</span>
+
         </a>
 
         {/* Desktop nav */}
@@ -46,15 +48,6 @@ export function Header() {
               {link.name}
             </a>
           ))}
-
-          {/* Contact Us button */}
-          <a
-            href="/contact"
-            className="ml-6 px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-semibold shadow-md hover:from-indigo-700 hover:to-indigo-800 transition transform hover:scale-105"
-          >
-            Get in touch
-          </a>
-
           {/* Theme toggle */}
           <button
             onClick={toggleTheme}
@@ -119,13 +112,7 @@ export function Header() {
                 </li>
               ))}
               <li>
-                <a
-                  href="/contact"
-                  className="block mt-4 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 font-semibold text-center shadow-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Contact Us
-                </a>
+              
               </li>
             </ul>
           </motion.nav>
